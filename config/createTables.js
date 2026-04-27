@@ -40,7 +40,10 @@ const createTables = async () => {
       );
     `);
     console.log("✅ Companies table created");
-
+    await pool.query(`
+  ALTER TABLE companies 
+  ADD COLUMN IF NOT EXISTS no_of_employees INTEGER;
+`);
     // Password resets table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS password_resets (
@@ -468,7 +471,7 @@ const createTables = async () => {
       );
     `);
     console.log("✅ Deal attachments table created");
-    // task assignees table 
+    // task assignees table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS task_assignees (
       id SERIAL PRIMARY KEY,
@@ -477,9 +480,9 @@ const createTables = async () => {
       user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
       UNIQUE (module_type, task_id, user_id)
        );
-      `)
+      `);
     console.log("✅ task assignees table created");
-    // company notes table 
+    // company notes table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS company_notes (
         id SERIAL PRIMARY KEY,
@@ -491,7 +494,7 @@ const createTables = async () => {
       );
     `);
     console.log("✅ Company notes table created");
-    // company email table 
+    // company email table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS company_emails (
         id SERIAL PRIMARY KEY,
@@ -521,7 +524,7 @@ const createTables = async () => {
       );
     `);
     console.log("✅ Company calls table created");
-    // company tasks table 
+    // company tasks table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS company_tasks (
         id SERIAL PRIMARY KEY,
@@ -540,7 +543,7 @@ const createTables = async () => {
       );
     `);
     console.log("✅ Company tasks table created");
-    // company meetings table 
+    // company meetings table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS company_meetings (
         id SERIAL PRIMARY KEY,
@@ -559,7 +562,7 @@ const createTables = async () => {
       );
     `);
     console.log("✅ Company meetings table created");
-    // company attachments table 
+    // company attachments table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS company_attachments (
         id SERIAL PRIMARY KEY,
