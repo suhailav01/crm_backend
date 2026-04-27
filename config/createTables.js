@@ -4,20 +4,26 @@ const createTables = async () => {
   try {
     // Users table
     await pool.query(`
-      CREATE TABLE IF NOT EXISTS users (
-        id BIGSERIAL PRIMARY KEY,
-        first_name VARCHAR(150),
-        last_name VARCHAR(150),
-        email VARCHAR(200) UNIQUE,
-        phone_number VARCHAR(15),
-        company_name VARCHAR(210),
-        industry_type VARCHAR(150),
-        country_region VARCHAR(150),
-        password VARCHAR(255),
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-    `);
+    CREATE TABLE IF NOT EXISTS users (
+    id BIGSERIAL PRIMARY KEY,
+    first_name VARCHAR(150),
+    last_name VARCHAR(150),
+    email VARCHAR(200) UNIQUE,
+    phone_number VARCHAR(15),
+    company_name VARCHAR(210),
+    industry_type VARCHAR(150),
+    country_region VARCHAR(150),
+    password VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
+`);
     console.log("✅ Users table created");
+
+    await pool.query(`
+  ALTER TABLE users 
+  ADD COLUMN IF NOT EXISTS role VARCHAR(20) DEFAULT 'user';
+`);
+    console.log("✅ Role column ensured");
 
     // Companies table
     await pool.query(`
