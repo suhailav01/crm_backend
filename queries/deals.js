@@ -58,7 +58,7 @@ SELECT
   l.first_name,
   l.last_name,
   l.email AS lead_email,
-  l.phone_number AS lead_phone_number
+  l.phone_number AS lead_phone_number,
   c.company_name,
   COALESCE(
     json_agg(
@@ -91,7 +91,7 @@ SELECT
   l.first_name,
   l.last_name,
   l.email AS lead_email,
-  l.phone_number AS lead_phone_number
+  l.phone_number AS lead_phone_number,
   c.company_name,
   COALESCE(
     json_agg(
