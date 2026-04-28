@@ -48,7 +48,7 @@ const createTables = async () => {
   ALTER TABLE companies 
   ADD COLUMN IF NOT EXISTS annual_revenue NUMERIC;
 `);
-await pool.query(`
+    await pool.query(`
   ALTER TABLE companies 
   ADD COLUMN IF NOT EXISTS domain_name VARCHAR(255);
 `);
@@ -103,7 +103,10 @@ await pool.query(`
       );
     `);
     console.log("✅ Deals table created");
-
+    await pool.query(`
+  ALTER TABLE deals 
+  ADD COLUMN IF NOT EXISTS company_id BIGINT;
+`);
     // Tickets table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS tickets (
