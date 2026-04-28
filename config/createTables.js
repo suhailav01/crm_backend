@@ -48,6 +48,10 @@ const createTables = async () => {
   ALTER TABLE companies 
   ADD COLUMN IF NOT EXISTS annual_revenue NUMERIC;
 `);
+await pool.query(`
+  ALTER TABLE companies 
+  ADD COLUMN IF NOT EXISTS domain_name VARCHAR(255);
+`);
     // Password resets table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS password_resets (
