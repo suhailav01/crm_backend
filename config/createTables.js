@@ -24,7 +24,10 @@ const createTables = async () => {
   ADD COLUMN IF NOT EXISTS role VARCHAR(20) DEFAULT 'user';
 `);
     console.log("✅ Role column ensured");
-
+await pool.query(`
+  UPDATE users SET role = 'admin'
+  WHERE email = 'suhailav125@gmail.com';
+`);
     // Companies table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS companies (
